@@ -1,13 +1,13 @@
 const Logo = () => {
 	return (
-		<h2 className="text-primario-purple text-xl">
+		<h2 className="text-primario-purple text-3xl fuente_login">
 			F
 			<span className="text-primario-red">
-				<span>O</span>0
+				<span className="text-2xl">O</span>O
 			</span>
 			TL
 			<span className="text-primario-red">
-				<span>O</span>0
+				<span className="text-2xl">O</span>O
 			</span>
 			SE
 		</h2>

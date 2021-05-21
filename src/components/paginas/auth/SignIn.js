@@ -3,13 +3,15 @@ import BtnPurple from "../../atomos/buttons/BtnPurple";
 import InputPurple from "../../atomos/inputs/InputPurple";
 import Logo from "../../atomos/Logo";
 import TxtRed from "../../atomos/texts/TxtRed";
+import imgLogin from "../../../static/img/login.svg";
 
 const SignIn = () => {
 	return (
-		<>
-			<Logo />
-			<form className="m-32">
-				<div className="flex flex-col">
+		<div className=" flex max-w-7xl m-auto h-screen justify-center items-center ">
+			<TxtRed text={"REGISTRARSE"} style={"absolute top-10 right-10"} />
+			<form className="w-full flex flex-col justify-center items-center sm:left-20 sm:items-start relative z-30 lg:items-center lg:left-0 ">
+				<Logo />
+				<div className="flex flex-col my-4 mt-14">
 					<TxtRed text={"CORREO"} />
 					<InputPurple
 						handleChange={() => {}}
@@ -22,7 +24,7 @@ const SignIn = () => {
 						style={""}
 					/>
 				</div>
-				<div className="flex flex-col">
+				<div className="flex flex-col my-4">
 					<TxtRed text={"CONTRASEÑA"} />
 					<InputPurple
 						handleChange={() => {}}
@@ -37,10 +39,10 @@ const SignIn = () => {
 				</div>
 				<BtnPurple text="INICIAR" />
 			</form>
-			<div>
-				<img src="" />
+			<div className="w-1/3 m-20 hidden absolute z-0 md:flex right-20 lg:relative lg:w-1/2  lg:-ml-32 ">
+				<img className="w-10/12" src={imgLogin} />
 			</div>
-		</>
+		</div>
 	);
 };
 

@@ -1,6 +1,6 @@
 const BtnPurple = ({ text }) => {
 	return (
-		<button className="border border-primario-purple rounded-sm py-2 text-center w-full my-3 text-primario-purple hover:bg-primario-purple hover:text-white">
+		<button className="border-4 border-primario-purple py-3 text-center  my-3 text-primario-purple font-bold hover:bg-primario-purple hover:text-white rounded-md w-96">
 			{text}
 		</button>
 	);
