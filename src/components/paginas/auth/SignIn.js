@@ -4,15 +4,23 @@ import InputPurple from "../../atomos/inputs/InputPurple";
 import Logo from "../../atomos/Logo";
 import TxtRed from "../../atomos/texts/TxtRed";
 import imgLogin from "../../../static/img/login.svg";
+import { Link } from "react-router-dom";
 
 const SignIn = () => {
 	return (
 		<div className=" flex max-w-7xl m-auto h-screen justify-center items-center ">
-			<TxtRed text={"REGISTRARSE"} style={"absolute top-10 right-10"} />
+			<Link to="/registro">
+				<TxtRed
+					text={"REGISTRARSE"}
+					style={
+						"absolute top-10 right-10 cursor-pointer hover:text-primario-purple"
+					}
+				/>
+			</Link>
 			<form className="w-full flex flex-col justify-center items-center sm:left-20 sm:items-start relative z-30 lg:items-center lg:left-0 ">
 				<Logo />
 				<div className="flex flex-col my-4 mt-14">
-					<TxtRed text={"CORREO"} />
+					<TxtRed text={"CORREO"} style={""} />
 					<InputPurple
 						handleChange={() => {}}
 						atributos={{
@@ -24,8 +32,9 @@ const SignIn = () => {
 						style={""}
 					/>
 				</div>
+
 				<div className="flex flex-col my-4">
-					<TxtRed text={"CONTRASEÑA"} />
+					<TxtRed text={"CONTRASEÑA"} style={""} />
 					<InputPurple
 						handleChange={() => {}}
 						atributos={{

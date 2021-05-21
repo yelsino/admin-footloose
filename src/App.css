@@ -30,6 +30,9 @@
 .fuente_login {
 	font-family: "Ubuntu", sans-serif;
 }
+.fuente_titulo {
+	font-family: "Roboto Slab", serif;
+}
 
 @keyframes App-logo-spin {
 	from {
