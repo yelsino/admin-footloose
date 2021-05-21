@@ -6,6 +6,7 @@ module.exports = {
 			colors: {
 				"primario-purple": "#8F00FF",
 				"primario-red": "#FA3131",
+				"primario-gray": "#8D8D8D",
 			},
 		},
 	},
