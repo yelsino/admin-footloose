@@ -33,7 +33,7 @@ const CardProduct = () => {
 					<TxtGray text={"PRECIO"} /> : A251234B
 				</label>
 			</div>
-			<div className="bg-transparent w-full h-full absolute top-0 flex justify-center items-center z-30">
+			<div className=" bg-transparent w-full h-full absolute top-0 flex justify-center items-center z-30">
 				<button className="tracking-widest bg-primario-purple py-2 px-6 rounded-md text-white font-semibold outline-none focus:outline-none">
 					DETALLE
 				</button>

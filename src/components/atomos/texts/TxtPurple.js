@@ -1,5 +1,9 @@
-const TxtPurple = ({ text }) => {
-	return <p className="text-primario-purple tracking-widest">{text}</p>;
+const TxtPurple = ({ text, style }) => {
+	return (
+		<p className={`text-primario-purple tracking-widest ${style && style}`}>
+			{text}
+		</p>
+	);
 };
 
 export default TxtPurple;

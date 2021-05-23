@@ -1,6 +1,5 @@
 import Search from "../../atomos/inputs/Search";
 import Titulo from "../../atomos/texts/Titulo";
-import ItemUser from "../../moleculas/Items/ItemUser";
 import CardOrder from "../../organismos/Cards/CardOrder";
 import CardProduct from "../../organismos/Cards/CardProduct";
 import Filtro from "../../organismos/Filtro";
@@ -29,9 +28,18 @@ const Orders = () => {
 			/>
 
 			<div className="flex flex-wrap gap-5 mt-5 justify-center mb-36">
-				<div>
-					<ItemUser />
-				</div>
+				<CardOrder />
+				<CardOrder />
+				<CardOrder />
+				<CardOrder />
+				<CardOrder />
+				<CardOrder />
+				<CardOrder />
+				<CardOrder />
+				<CardOrder />
+				<CardOrder />
+				<CardOrder />
+				<CardOrder />
 			</div>
 		</div>
 	);
