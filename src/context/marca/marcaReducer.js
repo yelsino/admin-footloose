@@ -1,11 +1,11 @@
-import { OBTENER_GENEROS } from "../../types";
+import { OBTENER_MARCAS } from "../../types";
 
 export default (state, action) => {
 	switch (action.type) {
-		case OBTENER_GENEROS:
+		case OBTENER_MARCAS:
 			return {
 				...state,
-				generos: action.payload,
+				marcas: action.payload,
 			};
 
 		default:

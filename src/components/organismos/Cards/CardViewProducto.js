@@ -1,18 +1,17 @@
 import TxtName from "../../atomos/texts/TxtName";
-import imgSandalia from "../../../static/img/sandalia.jpg";
 import TxtPurple from "../../atomos/texts/TxtPurple";
 import IconHeart from "../../atomos/icons/IconHeart";
 
 const CardViewProducto = ({ producto }) => {
-	const { marca, precio, genero, nombre, imagen } = producto;
+	const { marca, precio, genero, nombre, categoria, imagen } = producto;
 	return (
-		<div className="border shadow-md rounded-md p-4 w-64 h-80 relative flex flex-col items-center overflow-hidden justify-between ">
+		<div className="border shadow-md rounded-md p-4 w-72 h-96 relative flex flex-col items-center overflow-hidden justify-between ">
 			<div className="relative z-30  flex ">
 				<div className="w-1/2">
 					<TxtName
 						nombre={nombre}
 						marca={marca}
-						tipo={"sandalia"}
+						categoria={categoria}
 						genero={genero}
 						style={"leading-tight"}
 					/>
@@ -20,8 +19,9 @@ const CardViewProducto = ({ producto }) => {
 				<div className="w-1/2"></div>
 			</div>
 			<img
+				alt="#"
 				src={typeof imagen === "object" ? URL.createObjectURL(imagen) : imagen}
-				className="absolute z-0"
+				className="absolute z-0 w-10/12  bottom-20"
 			/>
 			<TxtPurple
 				style={"absolute bottom-20 z-30 font-bold"}

@@ -1,25 +1,25 @@
 import { useReducer } from "react";
 import clienteAxios from "../../config/axios";
-import { OBTENER_CATEGORIAS } from "../../types";
+import { OBTENER_GENEROS } from "../../types";
 
-import CategoriaReducer from "./categoriaReducer";
-import CategoriaContext from "./categoriaContext";
+import GeneroReducer from "./generoReducer";
+import GeneroContext from "./generoContext";
 
-const CategoriaState = (props) => {
+const GeneroState = (props) => {
 	const InitialState = {
-		categorias: [],
-		categoria_actual: null,
+		generos: [],
+		genero_actual: null,
 	};
 
-	const [state, dispatch] = useReducer(CategoriaReducer, InitialState);
+	const [state, dispatch] = useReducer(GeneroReducer, InitialState);
 
 	// d obtener listas
-	const obtenerCategorias = async () => {
+	const obtenerGeneros = async () => {
 		try {
-			const resultado = await clienteAxios.get("api/categorias");
+			const resultado = await clienteAxios.get("api/generos");
 			console.log(resultado);
 			dispatch({
-				type: OBTENER_CATEGORIAS,
+				type: OBTENER_GENEROS,
 				payload: resultado.data,
 			});
 		} catch (error) {
@@ -28,16 +28,16 @@ const CategoriaState = (props) => {
 	};
 
 	return (
-		<CategoriaContext.Provider
+		<GeneroContext.Provider
 			value={{
-				categorias: state.categorias,
-				categoria_actual: state.categoria_actual,
-				obtenerCategorias,
+				generos: state.generos,
+				genero_actual: state.genero_actual,
+				obtenerGeneros,
 			}}
 		>
 			{props.children}
-		</CategoriaContext.Provider>
+		</GeneroContext.Provider>
 	);
 };
 
-export default CategoriaState;
+export default GeneroState;

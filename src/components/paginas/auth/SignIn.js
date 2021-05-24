@@ -7,6 +7,7 @@ import imgLogin from "../../../static/img/login.svg";
 import { Link } from "react-router-dom";
 import AuthContext from "../../../context/autenticacion/authContext";
 import AlertaContext from "../../../context/alertas/alertaContext";
+import SpinCarga from "../../atomos/animaciones/SpinCarga";
 
 const SignIn = (props) => {
 	const alertaContext = useContext(AlertaContext);
@@ -18,10 +19,7 @@ const SignIn = (props) => {
 	// devolver mensajes
 	useEffect(() => {
 		if (autenticado) {
-			props.history.push("/admin");
-		}
-		if (mensaje) {
-			mostrarAlerta("error al iniciar sesion");
+			props.history.push("/admin/productos");
 		}
 	}, [mensaje, autenticado, props.history]);
 
@@ -92,10 +90,26 @@ const SignIn = (props) => {
 						style={""}
 					/>
 				</div>
-				<BtnPurple type={"submit"} text="INICIAR" />
+				<div className="relative flex justify-center items-center ">
+					<BtnPurple
+						style={""}
+						type={"submit"}
+						text={`${bloqueologin ? "INICIANDO" : "INICIAR"}`}
+					/>
+				</div>
+				{bloqueologin && (
+					<div className="flex justify-center items-center w-96 mt-3 ">
+						<SpinCarga texto={"validando..."} />
+					</div>
+				)}
 			</form>
-			<div className="w-1/3 m-20 hidden absolute z-0 md:flex right-20 lg:relative lg:w-1/2  lg:-ml-32 ">
-				<img className="w-10/12" src={imgLogin} />
+			<div className="w-1/3 m-20 hidden absolute z-0 md:flex right-20 lg:relative lg:w-1/2  lg:-ml-32  flex-col">
+				{mensaje && (
+					<p className="rounded-md bg-primario-red px-8 py-4 font-medium text-white">
+						{mensaje}
+					</p>
+				)}
+				<img alt="#" className="w-10/12" src={imgLogin} />
 			</div>
 		</div>
 	);

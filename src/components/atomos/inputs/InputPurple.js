@@ -7,7 +7,7 @@ const InputPurple = ({ atributos, handleChange, style }) => {
 	return (
 		<input
 			onChange={handleChange}
-			className={`  border-2 border-primario-purple outline-none rounded-md text-primario-purple mt-2 mb-2 ${
+			className={`  border-2 border-primario-purple outline-none rounded-md text-primario-purple mt-2 mb-2  ${
 				style ? style : "w-96 p-4"
 			}`}
 			id={atributos.id}

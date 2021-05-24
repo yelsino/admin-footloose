@@ -7,17 +7,16 @@ import MarcaContext from "../../context/marca/marcaContext";
 import ProductoContext from "../../context/productos/productoContext";
 import InputPurple from "../atomos/inputs/InputPurple";
 import Titulo from "../atomos/texts/Titulo";
-import TxtPurple from "../atomos/texts/TxtPurple";
-import CardAlerta from "../organismos/Cards/CardAlerta";
 import CardViewProducto from "../organismos/Cards/CardViewProducto";
-import Modal from "./Modal";
 
-const NewProduct = () => {
+const ActualizarProducto = () => {
 	useEffect(() => {
 		obtenerCategorias();
 		obtenerGeneros();
 		obtenerMarcas();
 	}, []);
+
+	const productoLS = JSON.parse(localStorage.getItem("producto_seleccionado"));
 
 	// d CONTEXTOS
 	const categoriaContext = useContext(CategoriaContext);
@@ -30,22 +29,19 @@ const NewProduct = () => {
 	const { marcas, obtenerMarcas } = marcaContext;
 
 	const productoContext = useContext(ProductoContext);
-	const { crearNuevoProducto } = productoContext;
-
-	// d ESTADOS
+	const { productos, actualizarProductoSeleccionado } = productoContext;
 
 	const [producto, setProducto] = useState({
-		nombre: "",
-		descripcion: "",
-		categoria: "sandalia",
-		genero: "hombres",
-		marca: "footloose",
-		stock: "",
-		alerta: "",
-		precio: "",
-		imagen: "",
+		nombre: productoLS.nombre,
+		descripcion: productoLS.descripcion,
+		categoria: productoLS.categoria.nombre,
+		genero: productoLS.genero.nombre,
+		marca: productoLS.marca.nombre,
+		stock: productoLS.stock,
+		alerta: productoLS.alerta,
+		precio: productoLS.precio,
+		imagen: productoLS.imagen,
 	});
-	const [modal, showModal] = useState(false);
 
 	const {
 		nombre,
@@ -76,20 +72,12 @@ const NewProduct = () => {
 				[name]: value,
 			});
 		}
+		console.log(value);
 	};
 
-	let formaData = new FormData();
-	formaData.set("nombre", nombre);
-	formaData.set("descripcion", descripcion);
-	formaData.set("categoria", categoria);
-	formaData.set("genero", genero);
-	formaData.set("marca", marca);
-	formaData.set("stock", stock);
-	formaData.set("alerta", alertame);
-	formaData.set("imagen", imagen);
-	formaData.set("precio", precio);
-
-	const validarDatos = (e) => {
+	const onSubmitForm = (e) => {
+		e.preventDefault();
+		e.persist();
 		if (
 			!nombre ||
 			!descripcion ||
@@ -98,19 +86,18 @@ const NewProduct = () => {
 			!marca ||
 			!stock ||
 			!alertame ||
-			!precio ||
-			!imagen
+			!precio
 		) {
 			console.log("hay campos vacios");
-			mostrarAlerta("todos los campos son obligatorios", "bg-primario-red");
+			mostrarAlerta("todos los campos son obligatorios", "alerta-error");
 			return;
 		}
 
-		if (Number(alertame) > Number(stock)) {
+		if (alertame > stock) {
 			console.log("alerta es mayor que");
 			mostrarAlerta(
 				"la cantidad minima para alertar, debe ser menor al del stock",
-				"bg-primario-red"
+				"alerta-error"
 			);
 			return;
 		}
@@ -120,23 +107,31 @@ const NewProduct = () => {
 			mostrarAlerta("no se permiten valores negativos");
 			return;
 		}
-		showModal(true);
-	};
-	const onSubmitForm = (e) => {
-		crearNuevoProducto(formaData);
-		showModal(false);
-		mostrarAlerta("creando producto...", "bg-primario-purple");
+
+		const DATA = {
+			nombre: String(nombre),
+			precio: Number(precio),
+			categoria: categorias.find((e) => e.nombre === categoria)._id,
+			genero: generos.find((e) => e.nombre === genero)._id,
+			marca: marcas.find((e) => e.nombre === marca)._id,
+			stock,
+			alerta: alertame,
+			descripcion,
+		};
+
+		actualizarProductoSeleccionado(productoLS._id, DATA);
+		mostrarAlerta("El producto se ha actualizado", "");
 	};
 
 	return (
 		<div className="flex  flex-col m-8 items-center w-full ">
 			<Titulo text={"NUEVO PRODUCTO"} />
 			<div className=" flex space-x-20 mt-10 w-full  justify-center">
-				<div className="flex flex-col  max-w-sm w-full ">
+				<div className="flex flex-col  max-w-sm w-full">
 					{/* nombre */}
 					<div className="flex flex-col mb-3">
 						<label className="text-primario-red" htmlFor="nombre">
-							Modelo
+							Nombre
 						</label>
 
 						<InputPurple
@@ -287,18 +282,14 @@ const NewProduct = () => {
 							name="descripcion"
 							value={descripcion}
 							onChange={handleChange}
-							className="border-2 border-primario-purple rounded-md h-20 focus:outline-none p-4 text-primario-purple "
+							className="border-2 border-primario-purple rounded-md h-20 focus:outline-none p-4 text-primario-purple"
 						/>
 					</div>
 					{/* imagen */}
 				</div>
 				<div className="">
 					{alerta && (
-						<p
-							className={`w-64 py-3 px-4 rounded-md my-2  text-white font-bold ${
-								alerta.clase ? alerta.clase : "bg-primario-red "
-							}`}
-						>
+						<p className="w-64 py-3 px-4 rounded-md my-2 bg-primario-red text-white font-bold">
 							{alerta.msg}
 						</p>
 					)}
@@ -324,35 +315,13 @@ const NewProduct = () => {
 			</div>
 			<button
 				type="button"
-				onClick={() => {
-					validarDatos();
-				}}
+				onClick={onSubmitForm}
 				className="absolute  bottom-10 right-10 border-2 border-primario-purple p-4 px-12 hover:bg-primario-purple rounded-md font-bold text-primario-purple hover:text-white shadow-md focus:outline-none bg-white"
 			>
-				crear
+				ACTUALIZAR
 			</button>
-			{modal && (
-				<Modal style={"bg-gray-700 opacity-90 "} position={"z-30"}>
-					<CardAlerta
-						botonAccion={onSubmitForm}
-						botonCancelar={showModal}
-						modal={modal}
-						atributos={{
-							titulo: "Añadir Producto",
-							name_boton_accion: "añadir",
-						}}
-					>
-						<div className="mt-2">
-							<p className="text-sm text-gray-500">
-								¿Estas seguro de crear este producto? <br></br> Todos los datos
-								seran almacenados el en sistema <br></br> .<br></br>
-							</p>
-						</div>
-					</CardAlerta>
-				</Modal>
-			)}
 		</div>
 	);
 };
 
-export default NewProduct;
+export default ActualizarProducto;
